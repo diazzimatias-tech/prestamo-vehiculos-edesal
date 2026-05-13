@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solicitud de Préstamo Provisorio de Vehículo - EDESAL</title>
+<style>
+:root{
+  --azul:#005BAA;
+  --azul2:#003f7a;
+  --verde:#00A651;
+  --gris:#f4f6f9;
+  --borde:#d9e2ec;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  background:linear-gradient(135deg,#eef5ff,#f7f9fc);
+  color:#1f2933;
+}
+.container{
+  max-width:760px;
+  margin:24px auto;
+  background:white;
+  border-radius:22px;
+  box-shadow:0 12px 35px rgba(0,0,0,.14);
+  overflow:hidden;
+}
+.header{
+  background:linear-gradient(135deg,var(--azul),var(--azul2));
+  color:white;
+  padding:28px 22px;
+  text-align:center;
+}
+.header h1{
+  margin:0;
+  font-size:26px;
+  line-height:1.2;
+}
+.header p{
+  margin:8px 0 0;
+  opacity:.95;
+}
+.content{padding:24px}
+.info{
+  background:#eef6ff;
+  border-left:5px solid var(--azul);
+  padding:14px 16px;
+  border-radius:14px;
+  margin-bottom:22px;
+  font-size:15px;
+}
+.field{margin-bottom:16px}
+label{
+  display:block;
+  font-weight:700;
+  margin-bottom:7px;
+}
+input, textarea, select{
+  width:100%;
+  border:1px solid var(--borde);
+  border-radius:12px;
+  padding:13px;
+  font-size:16px;
+  outline:none;
+}
+input:focus, textarea:focus, select:focus{
+  border-color:var(--azul);
+  box-shadow:0 0 0 3px rgba(0,91,170,.12);
+}
+textarea{min-height:90px; resize:vertical}
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+.check{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  background:#fafafa;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:12px;
+  margin-bottom:12px;
+}
+.check input{width:auto; margin-top:3px}
+.actions{
+  display:grid;
+  gap:12px;
+  margin-top:20px;
+}
+button, a.btn{
+  border:none;
+  border-radius:14px;
+  padding:15px 16px;
+  font-size:17px;
+  font-weight:800;
+  text-align:center;
+  text-decoration:none;
+  cursor:pointer;
+}
+.primary{background:var(--verde); color:white}
+.secondary{background:var(--azul); color:white}
+.ghost{background:#eef2f7; color:#243b53}
+.preview{
+  white-space:pre-wrap;
+  background:#0f172a;
+  color:#e2e8f0;
+  border-radius:14px;
+  padding:14px;
+  font-size:14px;
+  display:none;
+  margin-top:16px;
+}
+.footer{
+  padding:18px;
+  text-align:center;
+  font-size:13px;
+  color:#697386;
+  background:#fafafa;
+}
+.small{font-size:13px;color:#52616b;margin-top:6px}
+@media(max-width:640px){
+  .container{margin:0; border-radius:0; min-height:100vh}
+  .row{grid-template-columns:1fr}
+  .header h1{font-size:22px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Solicitud de Préstamo Provisorio de Vehículo</h1>
+    <p>Flota EDESAL · Servicios Generales</p>
+  </div>
+
+  <div class="content">
+    <div class="info">
+      Complete este formulario para registrar el uso provisorio de una unidad de la flota.
+      Al enviarlo, se genera un mensaje para WhatsApp y otro para correo.
+    </div>
+
+    <form id="formulario">
+      <div class="field">
+        <label for="nombre">Nombre y apellido *</label>
+        <input id="nombre" required placeholder="Ej.: Juan Pérez">
+      </div>
+
+      <div class="field">
+        <label for="sector">Sector / Área *</label>
+        <input id="sector" required placeholder="Ej.: Distrito Fortuna">
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="patente">Patente del vehículo solicitado *</label>
+          <input id="patente" required placeholder="Ej.: AB123CD" style="text-transform:uppercase">
+        </div>
+        <div class="field">
+          <label for="pin">PIN asignado o utilizado</label>
+          <input id="pin" placeholder="PIN propio o prestado">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="retiro">Fecha de retiro *</label>
+          <input id="retiro" type="date" required>
+        </div>
+        <div class="field">
+          <label for="devolucion">Fecha de devolución estimada *</label>
+          <input id="devolucion" type="date" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="horario">Horario de uso, si corresponde</label>
+        <input id="horario" placeholder="Ej.: de 08:00 a 13:00 / todo el día / 3 horas">
+      </div>
+
+      <div class="field">
+        <label for="motivo">Motivo de utilización *</label>
+        <textarea id="motivo" required placeholder="Describa brevemente el motivo del uso del vehículo"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="observaciones">Observaciones</label>
+        <textarea id="observaciones" placeholder="Aclaraciones adicionales, estado del vehículo, devolución de PIN, etc."></textarea>
+      </div>
+
+      <div class="check">
+        <input id="condiciones" type="checkbox" required>
+        <label for="condiciones">Declaro recibir el vehículo en condiciones para su uso.</label>
+      </div>
+
+      <div class="check">
+        <input id="devolver" type="checkbox" required>
+        <label for="devolver">Me comprometo a devolver el vehículo y el PIN asignado, si corresponde.</label>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="primary" onclick="enviarWhatsApp()">Enviar por WhatsApp a Alejandro</button>
+        <button type="button" class="secondary" onclick="enviarCorreo()">Enviar por correo a Vehículos</button>
+        <button type="button" class="ghost" onclick="verResumen()">Ver resumen antes de enviar</button>
+      </div>
+
+      <div id="preview" class="preview"></div>
+      <div class="small">
+        Nota: por seguridad, una página HTML sin servidor no puede enviar sola el WhatsApp y el correo al mismo tiempo.
+        Abre cada aplicación con el mensaje completo ya armado.
+      </div>
+    </form>
+  </div>
+
+  <div class="footer">
+    Sistema de control provisorio de vehículos · EDESAL · SSGG
+  </div>
+</div>
+
+<script>
+const WHATSAPP = "5492664718964";
+const EMAIL = "vehiculosedesal@edesal.com.ar";
+
+function valor(id){ return document.getElementById(id).value.trim(); }
+
+function formatoFechaLocal(){
+  const ahora = new Date();
+  const fecha = ahora.toLocaleDateString("es-AR");
+  const hora = ahora.toLocaleTimeString("es-AR", {hour:"2-digit", minute:"2-digit", second:"2-digit"});
+  return {fecha, hora};
+}
+
+function validar(){
+  const form = document.getElementById("formulario");
+  if(!form.reportValidity()) return false;
+  return true;
+}
+
+function armarMensaje(){
+  const envio = formatoFechaLocal();
+  const nombre = valor("nombre");
+  const sector = valor("sector");
+  const patente = valor("patente").toUpperCase();
+  const pin = valor("pin") || "No informado";
+  const retiro = valor("retiro");
+  const devolucion = valor("devolucion");
+  const horario = valor("horario") || "No corresponde / no informado";
+  const motivo = valor("motivo");
+  const observaciones = valor("observaciones") || "Sin observaciones";
+
+  return `🚗 SOLICITUD DE PRÉSTAMO PROVISORIO DE VEHÍCULO - EDESAL
+
+👤 Nombre y apellido: ${nombre}
+🏢 Sector / Área: ${sector}
+🚘 Patente del vehículo solicitado: ${patente}
+🔑 PIN asignado o utilizado: ${pin}
+
+📅 Fecha de retiro: ${retiro}
+📅 Fecha de devolución estimada: ${devolucion}
+⏰ Horario de uso: ${horario}
+
+📝 Motivo de utilización:
+${motivo}
+
+📎 Observaciones:
+${observaciones}
+
+✅ Declaración:
+- Recibe el vehículo en condiciones para su uso.
+- Se compromete a devolver el vehículo y el PIN asignado, si corresponde.
+
+🕓 Fecha y horario de envío:
+${envio.fecha} - ${envio.hora}
+
+Formulario enviado por: ${nombre}`;
+}
+
+function enviarWhatsApp(){
+  if(!validar()) return;
+  const mensaje = armarMensaje();
+  const url = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+  window.open(url, "_blank");
+}
+
+function enviarCorreo(){
+  if(!validar()) return;
+  const nombre = valor("nombre");
+  const patente = valor("patente").toUpperCase();
+  const asunto = `Solicitud préstamo provisorio vehículo - ${patente} - ${nombre}`;
+  const mensaje = armarMensaje();
+  const url = `mailto:${EMAIL}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(mensaje)}`;
+  window.location.href = url;
+}
+
+function verResumen(){
+  if(!validar()) return;
+  const box = document.getElementById("preview");
+  box.textContent = armarMensaje();
+  box.style.display = "block";
+  box.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+</script>
+</body>
+</html>
